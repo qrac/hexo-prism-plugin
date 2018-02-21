@@ -100,7 +100,8 @@ function PrismPlugin(data) {
   data.content = data.content.replace(regex, (origin, lang, code) => {
     const lineNumbers = line_number ? 'line-numbers' : '';
     const startTag = `<pre class="${lineNumbers} language-${lang}"><code class="language-${lang}">`;
-    const endTag = `</code></pre>`;
+    const endCodeTag = `</code>`;
+    const endPreTag = `</pre>`;
     code = unescape(code);
     let parsedCode = '';
     if (Prism.languages[lang]) {
@@ -115,9 +116,9 @@ function PrismPlugin(data) {
       lines = lines.join('<span></span>');
       const startLine = '<span aria-hidden="true" class="line-numbers-rows">';
       const endLine = '</span>';
-      parsedCode += startLine + lines + endLine;
+      parsedCode += endCodeTag + startLine + lines + endLine;
     }
-    return startTag + parsedCode + endTag;
+    return startTag + parsedCode + endPreTag;
   });
 
   return data;
